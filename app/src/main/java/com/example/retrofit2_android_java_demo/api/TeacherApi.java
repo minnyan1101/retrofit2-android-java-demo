@@ -23,7 +23,8 @@ import java.util.List;
 public interface TeacherApi {
   /**
    * 新しい講義の追加
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param createSubjectLectureRequest  (required)
    * @return Call&lt;List&lt;SubjectLectureResponse&gt;&gt;
@@ -33,13 +34,15 @@ public interface TeacherApi {
   })
   @POST("api/teacher/subjects/{subjectId}/lectures")
   Call<List<SubjectLectureResponse>> addLecture(
-    @retrofit2.http.Path("subjectId") Long subjectId,
-    @retrofit2.http.Body List<CreateSubjectLectureRequest> createSubjectLectureRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId,
+          @retrofit2.http.Body List<CreateSubjectLectureRequest> createSubjectLectureRequest
   );
 
   /**
    * 指定した学生の情報の編集
-   * 
+   *
+   * @param token  (required)
    * @param studentId  (required)
    * @param studentRequest  (required)
    * @return Call&lt;StudentStatusResponse&gt;
@@ -49,13 +52,15 @@ public interface TeacherApi {
   })
   @POST("api/teacher/students/{studentId}")
   Call<StudentStatusResponse> changeStudentStatus(
-    @retrofit2.http.Path("studentId") String studentId,
-    @retrofit2.http.Body StudentRequest studentRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("studentId") String studentId,
+          @retrofit2.http.Body StudentRequest studentRequest
   );
 
   /**
    * 新しいクラスの作成
-   * 
+   *
+   * @param token  (required)
    * @param createClassRequest  (required)
    * @return Call&lt;StudentClassResponse&gt;
    */
@@ -64,12 +69,14 @@ public interface TeacherApi {
   })
   @POST("api/teacher/classes")
   Call<StudentClassResponse> createClass(
-    @retrofit2.http.Body CreateClassRequest createClassRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Body CreateClassRequest createClassRequest
   );
 
   /**
    * 新しい授業の作成
-   * 
+   *
+   * @param token  (required)
    * @param createSubjectRequest  (required)
    * @return Call&lt;SubjectResponse&gt;
    */
@@ -78,12 +85,14 @@ public interface TeacherApi {
   })
   @POST("api/teacher/subjects")
   Call<SubjectResponse> createSubject(
-    @retrofit2.http.Body CreateSubjectRequest createSubjectRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Body CreateSubjectRequest createSubjectRequest
   );
 
   /**
    * 特定の講義を受講している特定学生の出席状況の変更
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param lectureId  (required)
    * @param studentId  (required)
@@ -95,15 +104,17 @@ public interface TeacherApi {
   })
   @POST("api/teacher/subjects/{subjectId}/lectures/{lectureId}/students/{studentId}")
   Call<StudentLectureAttendanceResponse> editAttendance(
-    @retrofit2.http.Path("subjectId") Long subjectId,
-    @retrofit2.http.Path("lectureId") Long lectureId,
-    @retrofit2.http.Path("studentId") String studentId,
-    @retrofit2.http.Body EditAttendanceRequest editAttendanceRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId,
+          @retrofit2.http.Path("lectureId") Long lectureId,
+          @retrofit2.http.Path("studentId") String studentId,
+          @retrofit2.http.Body EditAttendanceRequest editAttendanceRequest
   );
 
   /**
    * 既存のクラスの編集
-   * 
+   *
+   * @param token  (required)
    * @param classId  (required)
    * @param editClassRequest  (required)
    * @return Call&lt;StudentClassResponse&gt;
@@ -113,13 +124,15 @@ public interface TeacherApi {
   })
   @POST("api/teacher/classes/{classId}")
   Call<StudentClassResponse> editClass(
-    @retrofit2.http.Path("classId") Long classId,
-    @retrofit2.http.Body EditClassRequest editClassRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("classId") Long classId,
+          @retrofit2.http.Body EditClassRequest editClassRequest
   );
 
   /**
    * 特定の講義の編集
    *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param lectureId  (required)
    * @param editSubjectLectureRequest  (required)
@@ -130,14 +143,16 @@ public interface TeacherApi {
   })
   @POST("api/teacher/subjects/{subjectId}/lectures/{lectureId}")
   Call<SubjectLectureResponse> editLecture(
-    @retrofit2.http.Path("subjectId") Long subjectId,
-    @retrofit2.http.Path("lectureId") Long lectureId,
-    @retrofit2.http.Body EditSubjectLectureRequest editSubjectLectureRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId,
+          @retrofit2.http.Path("lectureId") Long lectureId,
+          @retrofit2.http.Body EditSubjectLectureRequest editSubjectLectureRequest
   );
 
   /**
    * 指定した授業内容の編集
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param editSubjectRequest  (required)
    * @return Call&lt;SubjectResponse&gt;
@@ -147,94 +162,114 @@ public interface TeacherApi {
   })
   @POST("api/teacher/subjects/{subjectId}")
   Call<SubjectResponse> editSubject(
-    @retrofit2.http.Path("subjectId") Long subjectId,
-    @retrofit2.http.Body EditSubjectRequest editSubjectRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId,
+          @retrofit2.http.Body EditSubjectRequest editSubjectRequest
   );
 
   /**
    * 特定の講義を受講している学生の出席状況一覧の取得
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param lectureId  (required)
    * @return Call&lt;List&lt;StudentLectureAttendanceResponse&gt;&gt;
    */
   @GET("api/teacher/subjects/{subjectId}/lectures/{lectureId}/students")
   Call<List<StudentLectureAttendanceResponse>> fetchAllAttendance(
-    @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Path("lectureId") Long lectureId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Path("lectureId") Long lectureId
   );
 
   /**
    * すべてのクラスの一覧
-   * 
+   *
+   * @param token  (required)
    * @return Call&lt;List&lt;StudentClassResponse&gt;&gt;
    */
   @GET("api/teacher/classes")
-  Call<List<StudentClassResponse>> fetchAllClass();
+  Call<List<StudentClassResponse>> fetchAllClass(
+          @retrofit2.http.Header("X-Auth-Token") String token
+  );
     
 
   /**
    * 特定の授業の講義の一覧の取得
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @return Call&lt;List&lt;SubjectLectureResponse&gt;&gt;
    */
   @GET("api/teacher/subjects/{subjectId}/lectures")
   Call<List<SubjectLectureResponse>> fetchAllLecture(
-    @retrofit2.http.Path("subjectId") Long subjectId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId
   );
 
   /**
    * すべての学生の一覧
-   * 
+   *
+   * @param token  (required)
    * @param classId  (optional)
    * @return Call&lt;List&lt;StudentStatusResponse&gt;&gt;
    */
   @GET("api/teacher/students")
   Call<List<StudentStatusResponse>> fetchAllStudents(
-    @retrofit2.http.Query("classId") Long classId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Query("classId") Long classId
   );
 
   /**
    * すべての授業の一覧
-   * 
+   *
+   * @param token  (required)
    * @return Call&lt;List&lt;SubjectResponse&gt;&gt;
    */
   @GET("api/teacher/subjects")
-  Call<List<SubjectResponse>> fetchAllSubject();
+  Call<List<SubjectResponse>> fetchAllSubject(
+          @retrofit2.http.Header("X-Auth-Token") String token
+  );
     
 
   /**
    * 特定の講義の詳細を取得
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @param lectureId  (required)
    * @return Call&lt;SubjectLectureResponse&gt;
    */
   @GET("api/teacher/subjects/{subjectId}/lectures/{lectureId}")
   Call<SubjectLectureResponse> fetchLecture(
-    @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Path("lectureId") Long lectureId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId,
+          @retrofit2.http.Path("lectureId") Long lectureId
   );
 
   /**
    * 指定した学生の情報
-   * 
+   *
+   * @param token  (required)
    * @param studentId  (required)
    * @return Call&lt;StudentStatusResponse&gt;
    */
   @GET("api/teacher/students/{studentId}")
   Call<StudentStatusResponse> fetchStudent(
-    @retrofit2.http.Path("studentId") String studentId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("studentId") String studentId
   );
 
   /**
    * 指定した授業内容の取得
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @return Call&lt;SubjectResponse&gt;
    */
   @GET("api/teacher/subjects/{subjectId}")
   Call<SubjectResponse> fetchSubject(
-    @retrofit2.http.Path("subjectId") Long subjectId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId
   );
 
 }

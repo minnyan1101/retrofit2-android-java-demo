@@ -12,11 +12,14 @@ import retrofit2.http.POST;
 public interface AuthApi {
   /**
    * 認証したアカウントの名前と権限を取得
-   * 
+   *
+   * @param token (required)
    * @return Call&lt;UserInfoResponse&gt;
    */
   @GET("api/auth/userinfo")
-  Call<UserInfoResponse> fetchUserInfo();
+  Call<UserInfoResponse> fetchUserInfo(
+          @retrofit2.http.Header("X-Auth-Token") String token
+  );
     
 
   /**

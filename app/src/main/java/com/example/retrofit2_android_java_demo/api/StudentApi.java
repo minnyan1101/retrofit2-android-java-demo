@@ -34,18 +34,21 @@ public interface StudentApi {
 
   /**
    * 学生が参加している指定したID授業の情報
-   * 
+   *
+   * @param token  (required)
    * @param subjectId  (required)
    * @return Call&lt;SubjectReportResponse&gt;
    */
   @GET("api/student/subjects/{subjectId}")
   Call<SubjectReportResponse> fetchSubjectReport(
-    @retrofit2.http.Path("subjectId") Long subjectId
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Path("subjectId") Long subjectId
   );
 
   /**
    * 学生が講義に参加
    * 学生が読み取った授業ID、講義IDとjoinCodeを利用して講義に参加します。
+   * @param token  (required)
    * @param joinLectureRequest  (required)
    * @return Call&lt;JoinStatusResponse&gt;
    */
@@ -54,7 +57,8 @@ public interface StudentApi {
   })
   @POST("api/student/join")
   Call<JoinStatusResponse> joinLecture(
-    @retrofit2.http.Body JoinLectureRequest joinLectureRequest
+          @retrofit2.http.Header("X-Auth-Token") String token,
+          @retrofit2.http.Body JoinLectureRequest joinLectureRequest
   );
 
   /**

@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.retrofit2_android_java_demo.api.model.SubjectResponse;
+
 import java.util.List;
 
-public class TeacherSubjectsAdapter extends ArrayAdapter<TeacherSubject> {
-    public TeacherSubjectsAdapter(@NonNull Context context, int resource, @NonNull List<TeacherSubject> objects) {
+public class TeacherSubjectsAdapter extends ArrayAdapter<SubjectResponse> {
+    public TeacherSubjectsAdapter(@NonNull Context context, int resource, @NonNull List<SubjectResponse> objects) {
         super(context, resource, objects);
     }
 
@@ -28,7 +30,7 @@ public class TeacherSubjectsAdapter extends ArrayAdapter<TeacherSubject> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.subject_list_item, parent,false);
         }
 
-        TeacherSubject subject = getItem(position);
+        SubjectResponse subject = getItem(position);
 
         TextView subjectNameView = convertView.findViewById(R.id.subjectName);
         subjectNameView.setText(subject.subjectName);
