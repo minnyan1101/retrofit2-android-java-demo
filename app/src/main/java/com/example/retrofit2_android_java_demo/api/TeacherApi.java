@@ -4,6 +4,10 @@ package com.example.retrofit2_android_java_demo.api;
 import com.example.retrofit2_android_java_demo.api.model.CreateClassRequest;
 import com.example.retrofit2_android_java_demo.api.model.CreateSubjectLectureRequest;
 import com.example.retrofit2_android_java_demo.api.model.CreateSubjectRequest;
+import com.example.retrofit2_android_java_demo.api.model.EditAttendanceRequest;
+import com.example.retrofit2_android_java_demo.api.model.EditClassRequest;
+import com.example.retrofit2_android_java_demo.api.model.EditSubjectLectureRequest;
+import com.example.retrofit2_android_java_demo.api.model.EditSubjectRequest;
 import com.example.retrofit2_android_java_demo.api.model.StudentClassResponse;
 import com.example.retrofit2_android_java_demo.api.model.StudentLectureAttendanceResponse;
 import com.example.retrofit2_android_java_demo.api.model.StudentRequest;
@@ -16,7 +20,7 @@ import retrofit2.http.*;
 
 import java.util.List;
 
-public interface TeacherApiApi {
+public interface TeacherApi {
   /**
    * 新しい講義の追加
    * 
@@ -91,7 +95,10 @@ public interface TeacherApiApi {
   })
   @POST("api/teacher/subjects/{subjectId}/lectures/{lectureId}/students/{studentId}")
   Call<StudentLectureAttendanceResponse> editAttendance(
-    @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Path("lectureId") Long lectureId, @retrofit2.http.Path("studentId") String studentId, @retrofit2.http.Body EditAttendanceRequest editAttendanceRequest
+    @retrofit2.http.Path("subjectId") Long subjectId,
+    @retrofit2.http.Path("lectureId") Long lectureId,
+    @retrofit2.http.Path("studentId") String studentId,
+    @retrofit2.http.Body EditAttendanceRequest editAttendanceRequest
   );
 
   /**
@@ -106,12 +113,13 @@ public interface TeacherApiApi {
   })
   @POST("api/teacher/classes/{classId}")
   Call<StudentClassResponse> editClass(
-    @retrofit2.http.Path("classId") Long classId, @retrofit2.http.Body EditClassRequest editClassRequest
+    @retrofit2.http.Path("classId") Long classId,
+    @retrofit2.http.Body EditClassRequest editClassRequest
   );
 
   /**
    * 特定の講義の編集
-   * 
+   *
    * @param subjectId  (required)
    * @param lectureId  (required)
    * @param editSubjectLectureRequest  (required)
@@ -122,7 +130,9 @@ public interface TeacherApiApi {
   })
   @POST("api/teacher/subjects/{subjectId}/lectures/{lectureId}")
   Call<SubjectLectureResponse> editLecture(
-    @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Path("lectureId") Long lectureId, @retrofit2.http.Body EditSubjectLectureRequest editSubjectLectureRequest
+    @retrofit2.http.Path("subjectId") Long subjectId,
+    @retrofit2.http.Path("lectureId") Long lectureId,
+    @retrofit2.http.Body EditSubjectLectureRequest editSubjectLectureRequest
   );
 
   /**
@@ -137,7 +147,8 @@ public interface TeacherApiApi {
   })
   @POST("api/teacher/subjects/{subjectId}")
   Call<SubjectResponse> editSubject(
-    @retrofit2.http.Path("subjectId") Long subjectId, @retrofit2.http.Body EditSubjectRequest editSubjectRequest
+    @retrofit2.http.Path("subjectId") Long subjectId,
+    @retrofit2.http.Body EditSubjectRequest editSubjectRequest
   );
 
   /**
